@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <header class="d-flex justify-content-center py-3">
+        <div class="navbar navbar-header">
+            <h5>|Cruise|</h5>
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a th:href="@{/CruiseLiner}" class="nav-link" aria-current="page">Home</a></li>
+                <li class="nav-item"><a th:href="@{/contacts}" class="nav-link">Contacts</a></li>
+                <li class="nav-item"><a th:href="@{/catalog}" class="nav-link active">Catalog</a></li>
+                <li class="nav-item"><a th:href="@{/profile}" class="nav-link">Profile</a></li>
+                <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link">Logout</a></li>
+                <li class="nav-item"><a th:href="@{/login}" class="nav-link">Login</a></li>
+                <li class="nav-item"><a th:href="@{/signup}" class="nav-link">Sign up</a></li>
+            </ul>
+        </div>
+    </header>
+</div>
+
+<div class="container">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+
+            <img class ="row" src="https://travel-tours.com.ua/wp-content/uploads/2016/02/kruizi.jpg">
+            <h5>Name: <p th:text="${cruise.getName()}"/><br/></h5>
+            <h5>Regions: <p th:text="${cruise.getRegions()}"/></h5>
+            <h5>Liner: <p th:text="${cruise.getLiner()}"/></h5>
+            <h5>Date: <p th:text="${cruise.getStartDay()}"/> - <p th:text="${cruise.getFinishDay()}"/><br/></h5>
+            <h5>Days: <p th:text="${cruise.getDays()}"/></h5>
+            <h5>Ports: <p th:text="${cruise.getFromPort()}"/> - <p th:text="${cruise.getToPort()}"/></h5>
+            <h5>Description: <p th:text="${cruise.getDescription()}"/></h5>
+            <h4 class="front-weight-bold blue-text">
+                <a th:href="@{/book/{cruiseName}(cruiseName=${cruise.getName()})}">
+                    <strong>Book</strong>
+                </a>
+            </h4>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

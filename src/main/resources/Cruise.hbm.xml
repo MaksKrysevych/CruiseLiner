@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping xmlns="http://www.hibernate.org/xsd/hibernate-mapping">
+
+    <class name="CruiseLiner.model.Cruise" table="cruise">
+        <id name="name" column="name"/>
+        <property name="regions" column="regions"/>
+        <property name="liner" column="liner"/>
+        <property name="startDay" column="start_day"/>
+        <property name="finishDay" column="finish_day"/>
+        <property name="fromPort" column="from_port"/>
+        <property name="toPort" column="to_port"/>
+        <property name="days" column="days"/>
+        <property name="description" column="description"/>
+    </class>
+</hibernate-mapping>

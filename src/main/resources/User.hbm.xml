@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping xmlns="http://www.hibernate.org/xsd/hibernate-mapping">
+
+    <class name="CruiseLiner.model.User" table="user">
+        <id name="login" column="login"/>
+        <property name="password" column="password"/>
+        <property name="role" column="role"/>
+        <property name="firstName" column="first_name"/>
+        <property name="lastName" column="last_name"/>
+        <property name="phoneNumber" column="phone_number"/>
+        <property name="email" column="email"/>
+        <property name="account" column="account"/>
+        <property name="notification" column="notification"/>
+    </class>
+</hibernate-mapping>

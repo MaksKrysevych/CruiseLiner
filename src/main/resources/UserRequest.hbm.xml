@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping xmlns="http://www.hibernate.org/xsd/hibernate-mapping">
+
+    <class name="CruiseLiner.model.UserRequest" table="user_request">
+        <id name="login" column="login"/>
+        <property name="cruiseName" column="cruise_name"/>
+        <property name="price" column="price"/>
+        <property name="createTime" column="create_time"/>
+        <property name="countPeople" column="count_people"/>
+        <property name="status" column="status"/>
+    </class>
+</hibernate-mapping>

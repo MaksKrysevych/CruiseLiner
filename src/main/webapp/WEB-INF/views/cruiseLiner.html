@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:fmt="http://www.w3.org/1999/XSL/Transform" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Ukrainian Cruise</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <style>
+        /* CSS */
+        .image {
+            display: block;
+            margin: 20px auto 30px auto;
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 30px;
+            outline: 6px dotted #999;
+            outline-offset: -3px;
+            border: 8px solid #997;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <header class="d-flex justify-content-center py-3">
+        <div class="navbar navbar-header">
+            <h5>|Cruise|</h5>
+
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a th:href="@{/}" class="nav-link active" aria-current="page">Home</a></li>
+                <li class="nav-item"><a th:href="@{/contacts}" class="nav-link">Contacts</a></li>
+                <li class="nav-item"><a th:href="@{/catalog}" class="nav-link">Catalog</a></li>
+                <li class="nav-item"><a th:href="@{/profile}" class="nav-link">Profile</a></li>
+                <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link">Logout</a></li>
+                <li class="nav-item"><a th:href="@{/login}" class="nav-link">Login</a></li>
+                <li class="nav-item"><a th:href="@{/signup}" class="nav-link">Sign up</a></li>
+            </ul>
+        </div>
+    </header>
+</div>
+
+<img src="https://life.pravda.com.ua/images/doc/4/9/49b1b70-kruize-2.jpg" class="image" alt="https://life.pravda.com.ua/images/doc/4/9/49b1b70-kruize-2.jpg">
+<div class="container">
+    <h2 class="text-center"><fmt:message key="main.text.description1"/></h2>
+    <div class="row text-center">
+        <h4><fmt:message key="main.text.description2"/></h4>
+    </div>
+    <div class="row">
+        <h5></h5>
+    </div>
+    <h6><fmt:message key="main.text.description4"/></h6>
+    <h6><fmt:message key="main.text.description5"/></h6>
+    <h6><fmt:message key="main.text.description6"/></h6>
+    <h6><fmt:message key="main.text.description7"/></h6>
+    <div class="row">
+        <h5><fmt:message key="main.text.description8"/></h5>
+    </div>
+    <div class="row">
+        <h5><fmt:message key="main.text.description9"/></h5>
+    </div>
+
+
+</div>
+
+</body>
+</html>

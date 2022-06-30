@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create cruise</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <header class="d-flex justify-content-center py-3">
+        <div class="navbar navbar-header">
+            <h5>|Cruise|</h5>
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a th:href="@{/CruiseLiner}" class="nav-link" aria-current="page">Home</a></li>
+                <li class="nav-item"><a th:href="@{/contacts}" class="nav-link">Contacts</a></li>
+                <li class="nav-item"><a th:href="@{/catalog}" class="nav-link">Catalog</a></li>
+                <li class="nav-item"><a th:href="@{/profile}" class="nav-link active">Profile</a></li>
+                <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link">Logout</a></li>
+                <li class="nav-item"><a th:href="@{/login}" class="nav-link">Login</a></li>
+                <li class="nav-item"><a th:href="@{/signup}" class="nav-link">Sign up</a></li>
+            </ul>
+        </div>
+    </header>
+    <div class="container">
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a th:href="@{/profile}" class="nav-link" aria-current="page">My profile</a></li>
+            <li class="nav-item"><a th:href="@{/requests}" class="nav-link">Requests</a></li>
+            <li class="nav-item"><a th:href="@{/cruises}" class="nav-link">Cruises</a></li>
+            <li class="nav-item"><a th:href="@{/liners}" class="nav-link">Liners</a></li>
+        </ul>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <form th:method="POST" th:action="@{/cruises/createCruise}" th:object="${cruise}">
+            <div class="form-group">
+                <label>Name</label>
+                <input name="name" type="text" th:flied="*{name}"  class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label>Regions</label>
+                <input name="regions" type="text" th:flied="*{regions}"  class="form-control" th:required="required"/>
+            </div>
+            <div class="form-group">
+                <label>Liner</label>
+                <input name="liner" type="text" th:flied="*{liner}" class="form-control" th:required="required"/>
+            </div>
+            <div class="form-group">
+                <label>Start day</label>
+                <input name="startDay" type="date" th:flied="*{startDay}" class="form-control" th:required="required"/>
+            </div>
+            <div class="form-group">
+                <label>Finish day</label>
+                <input name="finishDay" type="date" th:flied="*{finishDay}" class="form-control" th:required="required"/>
+            </div>
+            <div class="form-group">
+                <label>From port</label>
+                <input name="fromPort" type="text" th:flied="*{fromPort}" class="form-control" th:required="required"/>
+            </div>
+            <div class="form-group">
+                <label>To port</label>
+                <input name="toPort" type="text" th:flied="*{toPort}" class="form-control" th:required="required"/>
+            </div>
+            <div class="form-group">
+                <label>Days</label>
+                <input name="days" type="text" th:flied="*{days}" class="form-control" th:required="required"/>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <input name="description" type="text" th:flied="*{description}" class="form-control" th:required="required"/>
+                <button class="btn-primary" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

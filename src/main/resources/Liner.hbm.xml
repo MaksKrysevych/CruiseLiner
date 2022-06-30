@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping xmlns="http://www.hibernate.org/xsd/hibernate-mapping">
+
+    <class name="CruiseLiner.model.Liner" table="liner">
+        <id name="name" column="name"/>
+        <property name="built" column="built"/>
+        <property name="roomCount" column="room_count"/>
+        <property name="maxPeople" column="max_people"/>
+        <property name="clazz" column="class"/>
+        <property name="roomInner" column="room_inner"/>
+        <property name="roomWithWindow" column="room_with_window"/>
+        <property name="roomWithBalcony" column="room_with_balcony"/>
+        <property name="roomLuxury" column="room_luxury"/>
+    </class>
+</hibernate-mapping>

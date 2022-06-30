@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalog</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+    <header class="d-flex justify-content-center py-3">
+        <div class="navbar navbar-header">
+            <h5>|Cruise|</h5>
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a th:href="@{/CruiseLiner}" class="nav-link" aria-current="page">Home</a></li>
+                <li class="nav-item"><a th:href="@{/contacts}" class="nav-link">Contacts</a></li>
+                <li class="nav-item"><a th:href="@{/catalog}" class="nav-link active">Catalog</a></li>
+                <li class="nav-item"><a th:href="@{/profile}" class="nav-link">Profile</a></li>
+                <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link">Logout</a></li>
+                <li class="nav-item"><a th:href="@{/login}" class="nav-link">Login</a></li>
+                <li class="nav-item"><a th:href="@{/signup}" class="nav-link">Sign up</a></li>
+            </ul>
+        </div>
+    </header>
+</div>
+
+<div class="row d-flex h-75 justify-content-center align-items-center p-0">
+    <div class="col-lg-3 col-mb-6 mb-4">
+        <div class="row">
+            <th:block th:each="cruise :${cruises}">
+                <div class="view overlay">
+                    <img class ="row" src="https://travel-tours.com.ua/wp-content/uploads/2016/02/kruizi.jpg">
+                    <a href="">
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
+                <div class="row ">
+                    <strong>
+                    <h5>Name: <td th:text="${cruise.name}"/><br/></h5>
+                    <h5>Regions: <td th:text="${cruise.regions}"/></h5>
+                    <h5>Liner: <td th:text="${cruise.liner}"/></h5>
+                    <h5>Date: <td th:text="${cruise.startDay}"/> - <td th:text="${cruise.finishDay}"/><br/></h5>
+                    <h5>Days: <td th:text="${cruise.days}"/></h5>
+                    <h5>Ports: <td th:text="${cruise.fromPort}"/> - <td th:text="${cruise.toPort}"/></h5>
+                        <h4 class="front-weight-bold blue-text">
+                            <a th:href="@{/{name}(name=${cruise.name})}">
+                                <strong>Details</strong>
+                            </a>
+                        </h4>
+                    </strong>
+                </div>
+            </th:block>
+        </div>
+    </div>
+</div>
+</body>
+</html>

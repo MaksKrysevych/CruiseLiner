@@ -14,17 +14,13 @@
         <div class="navbar navbar-header">
             <h5>|Cruise|</h5>
             <ul class="nav nav-pills">
-                <li class="nav-item"><a th:href="@{/}" class="nav-link" aria-current="page">Home</a></li>
-                <li class="nav-item"><a th:href="@{/contacts}" class="nav-link">Contacts</a></li>
-                <li class="nav-item"><a th:href="@{/catalog}" class="nav-link">Catalog</a></li>
-                <div class="float" sec:authorize="isAuthenticated()">
-                    <li class="nav-item"><a th:href="@{/profile}" class="nav-link">Profile</a></li>
-                    <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link">Logout</a></li>
-                </div>
-                <div class="float" sec:authorize="!isAuthenticated()">
-                    <li class="nav-item"><a th:href="@{/login}" class="nav-link active">Login</a></li>
-                    <li class="nav-item"><a th:href="@{/signup}" class="nav-link">Sign up</a></li>
-                </div>
+                <li class="nav-item"><a th:href="@{/}" class="nav-link" aria-current="page" th:text="#{main.button.home}"></a></li>
+                <li class="nav-item"><a th:href="@{/contacts}" class="nav-link" th:text="#{main.button.contacts}"></a></li>
+                <li class="nav-item"><a th:href="@{/catalog/1?sorting=standard}" class="nav-link" th:text="#{main.button.catalog}"></a></li>
+                <li class="nav-item"><a th:href="@{/profile}" class="nav-link" th:text="#{main.button.profile}"></a></li>
+                <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link" th:text="#{main.button.logout}"></a></li>
+                <li class="nav-item"><a th:href="@{/login}" class="nav-link active" th:text="#{main.button.login}"></a></li>
+                <li class="nav-item"><a th:href="@{/signup}" class="nav-link" th:text="#{main.button.signup}"></a></li>
             </ul>
         </div>
     </header>
@@ -33,12 +29,12 @@
     <form th:method="POST" th:action="@{/login}" th:object="${user}">
         <div class="container">
             <div class="form-floating">
-                <input type="text" th:field="*{login}" placeholder="Input login"/>
+                <input type="text" th:field="*{login}" th:placeholder="#{login.label.username}"/>
             </div>
             <div class="form-floating">
-                <input type="text" th:field="*{password}" placeholder="Input password"/>
+                <input type="text" th:field="*{password}" th:placeholder="#{login.label.password}"/>
             </div>
-            <input type="submit" value="Submit"/>
+            <input type="submit" th:value="#{login.button.submit}"/>
         </div>
     </form>
 </div>

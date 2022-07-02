@@ -14,43 +14,43 @@
         <div class="navbar navbar-header">
             <h5>|Cruise|</h5>
             <ul class="nav nav-pills">
-                <li class="nav-item"><a th:href="@{/CruiseLiner}" class="nav-link" aria-current="page">Home</a></li>
-                <li class="nav-item"><a th:href="@{/contacts}" class="nav-link">Contacts</a></li>
-                <li class="nav-item"><a th:href="@{/catalog}" class="nav-link">Catalog</a></li>
-                <li class="nav-item"><a th:href="@{/profile}" class="nav-link active">Profile</a></li>
-                <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link">Logout</a></li>
-                <li class="nav-item"><a th:href="@{/login}" class="nav-link">Login</a></li>
-                <li class="nav-item"><a th:href="@{/signup}" class="nav-link">Sign up</a></li>
+                <li class="nav-item"><a th:href="@{/}" class="nav-link" aria-current="page" th:text="#{main.button.home}"></a></li>
+                <li class="nav-item"><a th:href="@{/contacts}" class="nav-link" th:text="#{main.button.contacts}"></a></li>
+                <li class="nav-item"><a th:href="@{/catalog/1?sorting=standard}" class="nav-link" th:text="#{main.button.catalog}"></a></li>
+                <li class="nav-item"><a th:href="@{/profile}" class="nav-link active" th:text="#{main.button.profile}"></a></li>
+                <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link" th:text="#{main.button.logout}"></a></li>
+                <li class="nav-item"><a th:href="@{/login}" class="nav-link" th:text="#{main.button.login}"></a></li>
+                <li class="nav-item"><a th:href="@{/signup}" class="nav-link" th:text="#{main.button.signup}"></a></li>
             </ul>
         </div>
     </header>
     <div class="container">
         <ul class="nav nav-pills">
-            <li class="nav-item"><a th:href="@{/profile}" class="nav-link" aria-current="page">My profile</a></li>
-            <li class="nav-item"><a th:href="@{/requests}" class="nav-link">Requests</a></li>
-            <li class="nav-item"><a th:href="@{/cruises}" class="nav-link">Cruises</a></li>
-            <li class="nav-item"><a th:href="@{/liners}" class="nav-link">Liners</a></li>
+            <li class="nav-item"><a th:href="@{/profile}" class="nav-link" aria-current="page" th:text="#{profile.button.myProfile}"></a></li>
+            <li class="nav-item"><a th:href="@{/requests/1}" class="nav-link" th:text="#{profile.button.requests}"></a></li>
+            <li class="nav-item"><a th:href="@{/cruises/1}" class="nav-link" th:text="#{profile.button.cruises}"></a></li>
+            <li class="nav-item"><a th:href="@{/liners/1}" class="nav-link" th:text="#{profile.button.liners}"></a></li>
         </ul>
     </div>
 </div>
 <div class="container">
     <h6 class="front-weight-bold blue-text">
         <a th:href="@{/liners/createLiner}">
-            <strong>Create liner</strong>
+            <strong><span th:text="#{liners.button.createNew}"></span></strong>
         </a>
     </h6>
     <table class="table table-bordered">
         <tr>
-            <th>Name</th>
-            <th>Built</th>
-            <th>Room count</th>
-            <th>Max people</th>
-            <th>Class</th>
-            <th>Room inner price</th>
-            <th>Room with window price</th>
-            <th>Room with balcony price</th>
-            <th>Room luxury price</th>
-            <th>Actions</th>
+            <th th:text="#{liners.label.name}"></th>
+            <th th:text="#{liners.label.built}"></th>
+            <th th:text="#{liners.label.roomCount}"></th>
+            <th th:text="#{liners.label.maxPeople}"></th>
+            <th th:text="#{liners.label.class}"></th>
+            <th th:text="#{liners.label.roomInnerPrice}"></th>
+            <th th:text="#{liners.label.roomWithWindowPrice}"></th>
+            <th th:text="#{liners.label.roomWithBalconyPrice}"></th>
+            <th th:text="#{liners.label.roomLuxuryPrice}"></th>
+            <th th:text="#{liners.label.actions}"></th>
         </tr>
         <tr th:each="liner : ${liners}">
             <td><span th:text="${liner.name}"></span></td>
@@ -73,7 +73,7 @@
                     <input type="hidden" th:value="${liner.roomWithWindow}" name="roomWithWindow">
                     <input type="hidden" th:value="${liner.roomWithBalcony}" name="roomWithBalcony">
                     <input type="hidden" th:value="${liner.roomLuxury}" name="roomLuxury">
-                    <button class="btn-primary" type="submit">Update</button>
+                    <button class="btn-primary" type="submit"><span th:text="#{liners.button.update}"></span></button>
                 </form>
                 <form th:method="POST" th:action="@{/liners/delete}">
                     <input type="hidden" th:value="${liner.name}" name="name">
@@ -85,11 +85,34 @@
                     <input type="hidden" th:value="${liner.roomWithWindow}" name="roomWithWindow">
                     <input type="hidden" th:value="${liner.roomWithBalcony}" name="roomWithBalcony">
                     <input type="hidden" th:value="${liner.roomLuxury}" name="roomLuxury">
-                    <button class="btn-primary" type="submit">Delete</button>
+                    <button class="btn-primary" type="submit"><span th:text="#{requests.button.delete}"></span></button>
                 </form>
             </td>
         </tr>
     </table>
+    <nav aria-label="Navigation for requests">
+        <div th:if="${totalPages > 1}">
+            <div class="row col-sm-10">
+                <div class="col-sm-1">
+                    <a th:if="${currentPage > 1}" th:href="@{'/liners/' + ${currentPage - 1}}"><span th:text="#{catalog.button.previous}"></span></a>
+                    <span th:unless="${currentPage == 1}"></span>
+                </div>
+                <div class="col-sm-1">
+                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                    <a th:if="${currentPage != i}" th:href="@{'/liners/' + ${i}}">[[${i}]]</a>
+                    <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                </span>
+                </div>
+                <div class="col-sm-1">
+                    <a th:if="${currentPage < totalPages}" th:href="@{'/liners/' + ${currentPage + 1}}"><span th:text="#{catalog.button.next}"></span></a>
+                    <span th:unless="${currentPage < totalPages}"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+</div>
 </div>
 </body>
 </html>

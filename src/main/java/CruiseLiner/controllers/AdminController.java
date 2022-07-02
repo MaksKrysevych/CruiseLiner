@@ -8,9 +8,7 @@ import CruiseLiner.model.Liner;
 import CruiseLiner.model.UserRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,10 +21,22 @@ public class AdminController {
         return "redirect:/requests";
     }
 
-    @GetMapping("/cruises")
-    public String cruiseTable(Model model){
-        List<Cruise> cruises = CruiseDAO.read();
+    @GetMapping("/cruises/{pageNo}")
+    public String cruiseTable(@PathVariable(value = "pageNo") int pageNo, Model model){
+        int recordsPerPage = 2;
+
+        int rows = CruiseDAO.read().size();
+        int noOfPages = rows / recordsPerPage;
+
+        if (rows % recordsPerPage != 0) {
+            noOfPages++;
+        }
+        List<Cruise> cruises = CruiseDAO.getSomeCruises(pageNo, 2);
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", noOfPages);
+        model.addAttribute("totalItems", rows);
         model.addAttribute("cruises", cruises);
+
         return "cruises";
     }
 
@@ -61,9 +71,21 @@ public class AdminController {
         return "redirect:/cruises";
     }
 
-    @GetMapping("/liners")
-    public String linerTable(Model model){
-        List<Liner> liners = LinerDAO.read();
+    @GetMapping("/liners/{pageNo}")
+    public String linerTable(@PathVariable(value = "pageNo") int pageNo, Model model){
+
+        int recordsPerPage = 2;
+
+        int rows = LinerDAO.read().size();
+        int noOfPages = rows / recordsPerPage;
+
+        if (rows % recordsPerPage != 0) {
+            noOfPages++;
+        }
+        List<Liner> liners = LinerDAO.getSomeLiners(pageNo, 2);
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", noOfPages);
+        model.addAttribute("totalItems", rows);
         model.addAttribute("liners", liners);
         return "liners";
     }
@@ -76,6 +98,7 @@ public class AdminController {
 
     @PostMapping("/liners/update")
     public String linerSubmit(@ModelAttribute Liner liner){
+
         LinerDAO.update(liner);
         return "redirect:/liners";
     }

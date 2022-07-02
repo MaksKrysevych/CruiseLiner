@@ -1,5 +1,6 @@
 package CruiseLiner.dao;
 
+import CruiseLiner.model.Liner;
 import CruiseLiner.model.UserRequest;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,6 +13,22 @@ public class UserRequestDAO {
      * Connection factory to database.
      */
     private static final SessionFactory factory = new Configuration().configure().buildSessionFactory();
+
+    /**
+     * Returns list of some requests
+     *
+     * @return List of Liner entities.
+     */
+    public static List<UserRequest> getSomeUserRequests(int currentPage, int recordsPerPage) {
+        int start = currentPage * recordsPerPage - recordsPerPage;
+
+        try (final Session session = factory.openSession()) {
+
+            List<UserRequest> requests = session.createQuery("FROM UserRequest ", UserRequest.class).setFirstResult(start).setMaxResults(recordsPerPage).getResultList();
+
+            return requests;
+        }
+    }
 
     /**
      * Create new userRequest in userRequest table.

@@ -14,13 +14,13 @@
     <div class="navbar navbar-header">
       <h5>|Cruise|</h5>
       <ul class="nav nav-pills">
-        <li class="nav-item"><a th:href="@{/CruiseLiner}" class="nav-link" aria-current="page">Home</a></li>
-        <li class="nav-item"><a th:href="@{/contacts}" class="nav-link">Contacts</a></li>
-        <li class="nav-item"><a th:href="@{/catalog}" class="nav-link active">Catalog</a></li>
-        <li class="nav-item"><a th:href="@{/profile}" class="nav-link">Profile</a></li>
-        <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link">Logout</a></li>
-        <li class="nav-item"><a th:href="@{/login}" class="nav-link">Login</a></li>
-        <li class="nav-item"><a th:href="@{/signup}" class="nav-link">Sign up</a></li>
+        <li class="nav-item"><a th:href="@{/}" class="nav-link" aria-current="page" th:text="#{main.button.home}"></a></li>
+        <li class="nav-item"><a th:href="@{/contacts}" class="nav-link" th:text="#{main.button.contacts}"></a></li>
+        <li class="nav-item"><a th:href="@{/catalog/1?sorting=standard}" class="nav-link  active" th:text="#{main.button.catalog}"></a></li>
+        <li class="nav-item"><a th:href="@{/profile}" class="nav-link" th:text="#{main.button.profile}"></a></li>
+        <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link" th:text="#{main.button.logout}"></a></li>
+        <li class="nav-item"><a th:href="@{/login}" class="nav-link" th:text="#{main.button.login}"></a></li>
+        <li class="nav-item"><a th:href="@{/signup}" class="nav-link" th:text="#{main.button.signup}"></a></li>
       </ul>
     </div>
   </header>
@@ -29,23 +29,23 @@
   <div class="col-lg-8 col-lg-offset-2">
     <form th:method="POST" th:action="@{/book/{cruiseName}(cruiseName=${cruiseName})}" th:object="${userRequest}">
       <div class="col-md-6">
-        <h1 class="text-center">Book</h1>
+        <h1 class="text-center"><span th:text="#{book.label.book}"/></h1>
         <div class="form-group">
-          <label>Login</label>
+          <label><span th:text="#{book.label.login}"/></label>
           <input id="login" type="text" th:field="*{login}" class="form-control" data-error="Login is required.">
         </div>
         <div class="form-group">
-          <label for="people">People</label>
+          <label for="people"><span th:text="#{book.label.people}"/></label>
           <input id="people" type="text" th:field="*{countPeople}" class="form-control" data-error="Count people is required.">
         </div>
         <div class="form-group">
-          <label for="room">Room </label>
+          <label for="room"><span th:text="#{book.label.room}"/> </label>
           <select class="form-control selectpicker" th:field="*{status}" id="room">
             <option hidden th:value="''" th:text="''" selected></option>
-            <option th:value="'inner'" th:text="'inner'"></option>
-            <option th:value="'with window'" th:text="'with window'"></option>
-            <option th:value="'with balcony'" th:text="'with balcony'"></option>
-            <option th:value="'luxury'" th:text="'luxury'"></option>
+            <option th:value="'inner'" th:text="#{book.label.room.inner}"></option>
+            <option th:value="'with window'" th:text="#{book.label.room.withWindow}"></option>
+            <option th:value="'with balcony'" th:text="#{book.label.room.withBalcony}"></option>
+            <option th:value="'luxury'" th:text="#{book.label.room.luxury}"></option>
           </select>
         </div>
         <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>

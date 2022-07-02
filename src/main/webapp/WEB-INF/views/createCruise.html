@@ -14,22 +14,22 @@
         <div class="navbar navbar-header">
             <h5>|Cruise|</h5>
             <ul class="nav nav-pills">
-                <li class="nav-item"><a th:href="@{/CruiseLiner}" class="nav-link" aria-current="page">Home</a></li>
-                <li class="nav-item"><a th:href="@{/contacts}" class="nav-link">Contacts</a></li>
-                <li class="nav-item"><a th:href="@{/catalog}" class="nav-link">Catalog</a></li>
-                <li class="nav-item"><a th:href="@{/profile}" class="nav-link active">Profile</a></li>
-                <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link">Logout</a></li>
-                <li class="nav-item"><a th:href="@{/login}" class="nav-link">Login</a></li>
-                <li class="nav-item"><a th:href="@{/signup}" class="nav-link">Sign up</a></li>
+                <li class="nav-item"><a th:href="@{/}" class="nav-link" aria-current="page" th:text="#{main.button.home}"></a></li>
+                <li class="nav-item"><a th:href="@{/contacts}" class="nav-link" th:text="#{main.button.contacts}"></a></li>
+                <li class="nav-item"><a th:href="@{/catalog/1?sorting=standard}" class="nav-link" th:text="#{main.button.catalog}"></a></li>
+                <li class="nav-item"><a th:href="@{/profile}" class="nav-link active" th:text="#{main.button.profile}"></a></li>
+                <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link" th:text="#{main.button.logout}"></a></li>
+                <li class="nav-item"><a th:href="@{/login}" class="nav-link" th:text="#{main.button.login}"></a></li>
+                <li class="nav-item"><a th:href="@{/signup}" class="nav-link" th:text="#{main.button.signup}"></a></li>
             </ul>
         </div>
     </header>
     <div class="container">
         <ul class="nav nav-pills">
-            <li class="nav-item"><a th:href="@{/profile}" class="nav-link" aria-current="page">My profile</a></li>
-            <li class="nav-item"><a th:href="@{/requests}" class="nav-link">Requests</a></li>
-            <li class="nav-item"><a th:href="@{/cruises}" class="nav-link">Cruises</a></li>
-            <li class="nav-item"><a th:href="@{/liners}" class="nav-link">Liners</a></li>
+            <li class="nav-item"><a th:href="@{/profile}" class="nav-link" aria-current="page" th:text="#{profile.button.myProfile}"></a></li>
+            <li class="nav-item"><a th:href="@{/requests/1}" class="nav-link" th:text="#{profile.button.requests}"></a></li>
+            <li class="nav-item"><a th:href="@{/cruises/1}" class="nav-link" th:text="#{profile.button.cruises}"></a></li>
+            <li class="nav-item"><a th:href="@{/liners/1}" class="nav-link" th:text="#{profile.button.liners}"></a></li>
         </ul>
     </div>
 </div>
@@ -37,41 +37,41 @@
     <div class="row">
         <form th:method="POST" th:action="@{/cruises/createCruise}" th:object="${cruise}">
             <div class="form-group">
-                <label>Name</label>
+                <label><span th:text="#{cruises.label.name}"/></label>
                 <input name="name" type="text" th:flied="*{name}"  class="form-control"/>
             </div>
             <div class="form-group">
-                <label>Regions</label>
+                <label><span th:text="#{cruises.label.regions}"/></label>
                 <input name="regions" type="text" th:flied="*{regions}"  class="form-control" th:required="required"/>
             </div>
             <div class="form-group">
-                <label>Liner</label>
+                <label><span th:text="#{cruises.label.liner}"/></label>
                 <input name="liner" type="text" th:flied="*{liner}" class="form-control" th:required="required"/>
             </div>
             <div class="form-group">
-                <label>Start day</label>
+                <label><span th:text="#{cruises.label.startDay}"/></label>
                 <input name="startDay" type="date" th:flied="*{startDay}" class="form-control" th:required="required"/>
             </div>
             <div class="form-group">
-                <label>Finish day</label>
+                <label><span th:text="#{cruises.label.finishDay}"/></label>
                 <input name="finishDay" type="date" th:flied="*{finishDay}" class="form-control" th:required="required"/>
             </div>
             <div class="form-group">
-                <label>From port</label>
+                <label><span th:text="#{cruises.label.fromPort}"/></label>
                 <input name="fromPort" type="text" th:flied="*{fromPort}" class="form-control" th:required="required"/>
             </div>
             <div class="form-group">
-                <label>To port</label>
+                <label><span th:text="#{cruises.label.toPort}"/></label>
                 <input name="toPort" type="text" th:flied="*{toPort}" class="form-control" th:required="required"/>
             </div>
             <div class="form-group">
-                <label>Days</label>
+                <label><span th:text="#{cruises.label.days}"/></label>
                 <input name="days" type="text" th:flied="*{days}" class="form-control" th:required="required"/>
             </div>
             <div class="form-group">
-                <label>Description</label>
+                <label><span th:text="#{cruises.label.description}"/></label>
                 <input name="description" type="text" th:flied="*{description}" class="form-control" th:required="required"/>
-                <button class="btn-primary" type="submit">Submit</button>
+                <button class="btn-primary" type="submit"><span th:text="#{cruises.button.submit}"/></button>
             </div>
         </form>
     </div>

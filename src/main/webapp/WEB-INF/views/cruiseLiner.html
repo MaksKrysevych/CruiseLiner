@@ -26,15 +26,14 @@
     <header class="d-flex justify-content-center py-3">
         <div class="navbar navbar-header">
             <h5>|Cruise|</h5>
-
             <ul class="nav nav-pills">
-                <li class="nav-item"><a th:href="@{/}" class="nav-link active" aria-current="page">Home</a></li>
-                <li class="nav-item"><a th:href="@{/contacts}" class="nav-link">Contacts</a></li>
-                <li class="nav-item"><a th:href="@{/catalog}" class="nav-link">Catalog</a></li>
-                <li class="nav-item"><a th:href="@{/profile}" class="nav-link">Profile</a></li>
-                <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link">Logout</a></li>
-                <li class="nav-item"><a th:href="@{/login}" class="nav-link">Login</a></li>
-                <li class="nav-item"><a th:href="@{/signup}" class="nav-link">Sign up</a></li>
+                <li class="nav-item"><a th:href="@{/}" class="nav-link active" aria-current="page" th:text="#{main.button.home}"></a></li>
+                <li class="nav-item"><a th:href="@{/contacts}" class="nav-link" th:text="#{main.button.contacts}"></a></li>
+                <li class="nav-item"><a th:href="@{/catalog/1?sorting=standard}" class="nav-link" th:text="#{main.button.catalog}"></a></li>
+                <li class="nav-item"><a th:href="@{/profile}" class="nav-link" th:text="#{main.button.profile}"></a></li>
+                <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link" th:text="#{main.button.logout}"></a></li>
+                <li class="nav-item"><a th:href="@{/login}" class="nav-link" th:text="#{main.button.login}"></a></li>
+                <li class="nav-item"><a th:href="@{/signup}" class="nav-link" th:text="#{main.button.signup}"></a></li>
             </ul>
         </div>
     </header>
@@ -42,26 +41,23 @@
 
 <img src="https://life.pravda.com.ua/images/doc/4/9/49b1b70-kruize-2.jpg" class="image" alt="https://life.pravda.com.ua/images/doc/4/9/49b1b70-kruize-2.jpg">
 <div class="container">
-    <h2 class="text-center"><fmt:message key="main.text.description1"/></h2>
+    <h2 th:text="#{main.text.description1}"></h2>
     <div class="row text-center">
-        <h4><fmt:message key="main.text.description2"/></h4>
+        <h4 th:text="#{main.text.description2}"></h4>
     </div>
     <div class="row">
-        <h5></h5>
+        <h5 th:text="#{main.text.description3}"></h5>
     </div>
-    <h6><fmt:message key="main.text.description4"/></h6>
-    <h6><fmt:message key="main.text.description5"/></h6>
-    <h6><fmt:message key="main.text.description6"/></h6>
-    <h6><fmt:message key="main.text.description7"/></h6>
+    <h6 th:text="#{main.text.description4}"></h6>
+    <h6 th:text="#{main.text.description5}"></h6>
+    <h6 th:text="#{main.text.description6}"></h6>
+    <h6 th:text="#{main.text.description7}"></h6>
     <div class="row">
-        <h5><fmt:message key="main.text.description8"/></h5>
+        <h5 th:text="#{main.text.description8}"></h5>
     </div>
     <div class="row">
-        <h5><fmt:message key="main.text.description9"/></h5>
+        <h5 th:text="#{main.text.description9}"></h5>
     </div>
-
-
 </div>
-
 </body>
 </html>

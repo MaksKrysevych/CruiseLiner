@@ -14,13 +14,13 @@
         <div class="navbar navbar-header">
             <h5>|Cruise|</h5>
             <ul class="nav nav-pills">
-                <li class="nav-item"><a th:href="@{/CruiseLiner}" class="nav-link" aria-current="page">Home</a></li>
-                <li class="nav-item"><a th:href="@{/contacts}" class="nav-link">Contacts</a></li>
-                <li class="nav-item"><a th:href="@{/catalog}" class="nav-link active">Catalog</a></li>
-                <li class="nav-item"><a th:href="@{/profile}" class="nav-link">Profile</a></li>
-                <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link">Logout</a></li>
-                <li class="nav-item"><a th:href="@{/login}" class="nav-link">Login</a></li>
-                <li class="nav-item"><a th:href="@{/signup}" class="nav-link">Sign up</a></li>
+                <li class="nav-item"><a th:href="@{/}" class="nav-link" aria-current="page" th:text="#{main.button.home}"></a></li>
+                <li class="nav-item"><a th:href="@{/contacts}" class="nav-link" th:text="#{main.button.contacts}"></a></li>
+                <li class="nav-item"><a th:href="@{/catalog/1?sorting=standard}" class="nav-link active" th:text="#{main.button.catalog}"></a></li>
+                <li class="nav-item"><a th:href="@{/profile}" class="nav-link" th:text="#{main.button.profile}"></a></li>
+                <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link" th:text="#{main.button.logout}"></a></li>
+                <li class="nav-item"><a th:href="@{/login}" class="nav-link" th:text="#{main.button.login}"></a></li>
+                <li class="nav-item"><a th:href="@{/signup}" class="nav-link" th:text="#{main.button.signup}"></a></li>
             </ul>
         </div>
     </header>
@@ -31,16 +31,16 @@
         <div class="form-group col-md-6">
 
             <img class ="row" src="https://travel-tours.com.ua/wp-content/uploads/2016/02/kruizi.jpg">
-            <h5>Name: <p th:text="${cruise.getName()}"/><br/></h5>
-            <h5>Regions: <p th:text="${cruise.getRegions()}"/></h5>
-            <h5>Liner: <p th:text="${cruise.getLiner()}"/></h5>
-            <h5>Date: <p th:text="${cruise.getStartDay()}"/> - <p th:text="${cruise.getFinishDay()}"/><br/></h5>
-            <h5>Days: <p th:text="${cruise.getDays()}"/></h5>
-            <h5>Ports: <p th:text="${cruise.getFromPort()}"/> - <p th:text="${cruise.getToPort()}"/></h5>
-            <h5>Description: <p th:text="${cruise.getDescription()}"/></h5>
+            <span th:text="#{details.label.name}"/>: <td th:text="${cruise.name}"/> <br/>
+            <span th:text="#{details.label.regions}"/>: <td th:text="${cruise.regions}"/> <br/>
+            <span th:text="#{details.label.liner}"/>: <td th:text="${cruise.liner}"/> <br/>
+            <span th:text="#{details.label.date}"/>: <td th:text="${cruise.startDay}"/> - <td th:text="${cruise.finishDay}"/><br/>
+            <span th:text="#{details.label.days}"/>: <td th:text="${cruise.days}"/> <br/>
+            <span th:text="#{details.label.ports}"/>: <td th:text="${cruise.fromPort}"/> - <td th:text="${cruise.toPort}"/><br/>
+            <span th:text="#{details.label.description}"/>: <td th:text="${cruise.description}"/> <br/>
             <h4 class="front-weight-bold blue-text">
                 <a th:href="@{/book/{cruiseName}(cruiseName=${cruise.getName()})}">
-                    <strong>Book</strong>
+                    <strong><span th:text="#{catalog.button.book}"></span></strong>
                 </a>
             </h4>
         </div>

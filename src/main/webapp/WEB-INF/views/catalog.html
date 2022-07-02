@@ -15,19 +15,27 @@
         <div class="navbar navbar-header">
             <h5>|Cruise|</h5>
             <ul class="nav nav-pills">
-                <li class="nav-item"><a th:href="@{/CruiseLiner}" class="nav-link" aria-current="page">Home</a></li>
-                <li class="nav-item"><a th:href="@{/contacts}" class="nav-link">Contacts</a></li>
-                <li class="nav-item"><a th:href="@{/catalog}" class="nav-link active">Catalog</a></li>
-                <li class="nav-item"><a th:href="@{/profile}" class="nav-link">Profile</a></li>
-                <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link">Logout</a></li>
-                <li class="nav-item"><a th:href="@{/login}" class="nav-link">Login</a></li>
-                <li class="nav-item"><a th:href="@{/signup}" class="nav-link">Sign up</a></li>
+                <li class="nav-item"><a th:href="@{/}" class="nav-link" aria-current="page" th:text="#{main.button.home}"></a></li>
+                <li class="nav-item"><a th:href="@{/contacts}" class="nav-link" th:text="#{main.button.contacts}"></a></li>
+                <li class="nav-item"><a th:href="@{/catalog/1?sorting=standard}" class="nav-link active" th:text="#{main.button.catalog}"></a></li>
+                <li class="nav-item"><a th:href="@{/profile}" class="nav-link" th:text="#{main.button.profile}"></a></li>
+                <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link" th:text="#{main.button.logout}"></a></li>
+                <li class="nav-item"><a th:href="@{/login}" class="nav-link" th:text="#{main.button.login}"></a></li>
+                <li class="nav-item"><a th:href="@{/signup}" class="nav-link" th:text="#{main.button.signup}"></a></li>
             </ul>
         </div>
     </header>
 </div>
-
+<div class="container">
+        <ul class="nav nav-pills">
+            <li><span th:text="#{catalog.label.sorting}"></span> </li>
+            <li><a class="dropdown-item" th:href="@{/catalog/{pageNo}?sorting={sorting}(pageNo=${currentPage}, sorting='byDays')}"><span th:text="#{catalog.button.byDays}"/></a></li>
+            <li><a class="dropdown-item" th:href="@{/catalog/{pageNo}?sorting={sorting}(pageNo=${currentPage}, sorting='byDate')}"><span th:text="#{catalog.button.byDate}"/></a></li>
+        </ul>
+    </div>
+</div>
 <div class="row d-flex h-75 justify-content-center align-items-center p-0">
+
     <div class="col-lg-3 col-mb-6 mb-4">
         <div class="row">
             <th:block th:each="cruise :${cruises}">
@@ -39,21 +47,41 @@
                 </div>
                 <div class="row ">
                     <strong>
-                    <h5>Name: <td th:text="${cruise.name}"/><br/></h5>
-                    <h5>Regions: <td th:text="${cruise.regions}"/></h5>
-                    <h5>Liner: <td th:text="${cruise.liner}"/></h5>
-                    <h5>Date: <td th:text="${cruise.startDay}"/> - <td th:text="${cruise.finishDay}"/><br/></h5>
-                    <h5>Days: <td th:text="${cruise.days}"/></h5>
-                    <h5>Ports: <td th:text="${cruise.fromPort}"/> - <td th:text="${cruise.toPort}"/></h5>
+                        <span th:text="#{catalog.label.name}"/>: <td th:text="${cruise.name}"/> <br/>
+                        <span th:text="#{catalog.label.regions}"/>: <td th:text="${cruise.regions}"/><br/>
+                        <span th:text="#{catalog.label.liner}"/>: <td th:text="${cruise.liner}"/><br/>
+                        <span th:text="#{catalog.label.date}"/>: <td th:text="${cruise.startDay}"/> - <td th:text="${cruise.finishDay}"/><br/>
+                        <span th:text="#{catalog.label.days}"/>: <td th:text="${cruise.days}"/></span><br/>
+                        <span th:text="#{catalog.label.ports}"/>: <td th:text="${cruise.fromPort}"/> - <td th:text="${cruise.toPort}"/>
                         <h4 class="front-weight-bold blue-text">
                             <a th:href="@{/{name}(name=${cruise.name})}">
-                                <strong>Details</strong>
+                                <strong><span th:text="#{catalog.button.details}"></span></strong>
                             </a>
                         </h4>
                     </strong>
                 </div>
             </th:block>
         </div>
+        <nav aria-label="Navigation for requests">
+            <div th:if="${totalPages > 1}">
+                <div class="row col-sm-10">
+                    <div class="col-sm-1">
+                        <a th:if="${currentPage > 1}" th:href="@{/catalog/{pageNo}?sorting={sorting}(pageNo=${currentPage - 1}, sorting=${sorting})}"><span th:text="#{catalog.button.previous}"></span></a>
+                        <span th:unless="${currentPage == 1}"></span>
+                    </div>
+                    <div class="col-sm-1">
+                    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                        <a th:if="${currentPage != i}" th:href="@{/catalog/{pageNo}?sorting={sorting}(pageNo=${i}, sorting=${sorting})}">[[${i}]]</a>
+                        <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                    </span>
+                    </div>
+                    <div class="col-sm-1">
+                        <a th:if="${currentPage < totalPages}" th:href="@{/catalog/{pageNo}?sorting={sorting}(pageNo=${currentPage + 1}, sorting=${sorting})}"><span th:text="#{catalog.button.next}"></span></a>
+                        <span th:unless="${currentPage < totalPages}"></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
     </div>
 </div>
 </body>

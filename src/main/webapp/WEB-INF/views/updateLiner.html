@@ -14,22 +14,22 @@
         <div class="navbar navbar-header">
             <h5>|Cruise|</h5>
             <ul class="nav nav-pills">
-                <li class="nav-item"><a th:href="@{/CruiseLiner}" class="nav-link" aria-current="page">Home</a></li>
-                <li class="nav-item"><a th:href="@{/contacts}" class="nav-link">Contacts</a></li>
-                <li class="nav-item"><a th:href="@{/catalog}" class="nav-link">Catalog</a></li>
-                <li class="nav-item"><a th:href="@{/profile}" class="nav-link active">Profile</a></li>
-                <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link">Logout</a></li>
-                <li class="nav-item"><a th:href="@{/login}" class="nav-link">Login</a></li>
-                <li class="nav-item"><a th:href="@{/signup}" class="nav-link">Sign up</a></li>
+                <li class="nav-item"><a th:href="@{/}" class="nav-link" aria-current="page" th:text="#{main.button.home}"></a></li>
+                <li class="nav-item"><a th:href="@{/contacts}" class="nav-link" th:text="#{main.button.contacts}"></a></li>
+                <li class="nav-item"><a th:href="@{/catalog/1?sorting=standard}" class="nav-link" th:text="#{main.button.catalog}"></a></li>
+                <li class="nav-item"><a th:href="@{/profile}" class="nav-link active" th:text="#{main.button.profile}"></a></li>
+                <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link" th:text="#{main.button.logout}"></a></li>
+                <li class="nav-item"><a th:href="@{/login}" class="nav-link" th:text="#{main.button.login}"></a></li>
+                <li class="nav-item"><a th:href="@{/signup}" class="nav-link" th:text="#{main.button.signup}"></a></li>
             </ul>
         </div>
     </header>
     <div class="container">
         <ul class="nav nav-pills">
-            <li class="nav-item"><a th:href="@{/profile}" class="nav-link" aria-current="page">My profile</a></li>
-            <li class="nav-item"><a th:href="@{/requests}" class="nav-link">Requests</a></li>
-            <li class="nav-item"><a th:href="@{/cruises}" class="nav-link">Cruises</a></li>
-            <li class="nav-item"><a th:href="@{/liners}" class="nav-link">Liners</a></li>
+            <li class="nav-item"><a th:href="@{/profile}" class="nav-link" aria-current="page" th:text="#{profile.button.myProfile}"></a></li>
+            <li class="nav-item"><a th:href="@{/requests/1}" class="nav-link" th:text="#{profile.button.requests}"></a></li>
+            <li class="nav-item"><a th:href="@{/cruises/1}" class="nav-link" th:text="#{profile.button.cruises}"></a></li>
+            <li class="nav-item"><a th:href="@{/liners/1}" class="nav-link" th:text="#{profile.button.liners}"></a></li>
         </ul>
     </div>
 </div>
@@ -37,41 +37,41 @@
     <div class="row">
         <form th:method="POST" th:action="@{/liners/update}" th:object="${liner}">
             <div class="form-group">
-                <label>Name</label>
+                <label><span th:text="#{liners.label.name}"></span></label>
                 <input name="name" type="text" th:flied="*{name}"  th:value="*{name}" class="form-control" th:required="required"/>
             </div>
             <div class="form-group">
-                <label>Built</label>
+                <label><span th:text="#{liners.label.built}"></span></label>
                 <input name="built" type="text" th:flied="*{built}" th:value="*{built}" class="form-control" th:required="required"/>
             </div>
             <div class="form-group">
-                <label>Room count</label>
+                <label><span th:text="#{liners.label.roomCount}"></span></label>
                 <input name="roomCount" type="text" th:flied="*{roomCount}" th:value="*{roomCount}" class="form-control" th:required="required"/>
             </div>
             <div class="form-group">
-                <label>Max people</label>
+                <label><span th:text="#{liners.label.maxPeople}"></span></label>
                 <input name="maxPeople" type="text" th:flied="*{maxPeople}" th:value="*{maxPeople}" class="form-control" th:required="required"/>
             </div>
             <div class="form-group">
-                <label>Class</label>
+                <label><span th:text="#{liners.label.class}"></span></label>
                 <input name="clazz" type="text" th:flied="*{clazz}" th:value="*{clazz}" class="form-control" th:required="required"/>
             </div>
             <div class="form-group">
-                <label>Room inner price</label>
+                <label><span th:text="#{liners.label.roomInnerPrice}"></span></label>
                 <input name="roomInner" type="text" th:flied="*{roomInner}" th:value="*{roomInner}" class="form-control" th:required="required"/>
             </div>
             <div class="form-group">
-                <label>Room with window price</label>
+                <label><span th:text="#{liners.label.roomWithWindowPrice}"></span></label>
                 <input name="roomWithWindow" type="text" th:flied="*{roomWithWindow}" th:value="*{roomWithWindow}" class="form-control" th:required="required"/>
             </div>
             <div class="form-group">
-                <label>Room with balcony price</label>
+                <label><span th:text="#{liners.label.roomWithBalconyPrice}"></span></label>
                 <input name="roomWithBalcony" type="text" th:flied="*{roomWithBalcony}" th:value="*{roomWithBalcony}" class="form-control" th:required="required"/>
             </div>
             <div class="form-group">
-                <label>Room luxury price</label>
+                <label><span th:text="#{liners.label.roomLuxuryPrice}"></span></label>
                 <input name="roomLuxury" type="text" th:flied="*{roomLuxury}" th:value="*{roomLuxury}" class="form-control" th:required="required"/>
-                <button class="btn-primary" type="submit">Submit</button>
+                <button class="btn-primary" type="submit"><span th:text="#{cruises.button.submit}"></span></button>
             </div>
         </form>
     </div>

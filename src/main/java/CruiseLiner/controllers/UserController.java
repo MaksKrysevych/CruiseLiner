@@ -4,6 +4,7 @@ import CruiseLiner.dao.CruiseDAO;
 import CruiseLiner.dao.LinerDAO;
 import CruiseLiner.dao.UserDAO;
 import CruiseLiner.dao.UserRequestDAO;
+import CruiseLiner.model.Cruise;
 import CruiseLiner.model.Liner;
 import CruiseLiner.model.User;
 import CruiseLiner.model.UserRequest;
@@ -86,10 +87,22 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/requests")
-    public String requestsTable(Model model){
-        List<UserRequest> userRequests = UserRequestDAO.read();
+    @GetMapping("/requests/{pageNo}")
+    public String requestsTable(@PathVariable(value = "pageNo") int pageNo, Model model){
+        int recordsPerPage = 2;
+
+        int rows = UserRequestDAO.read().size();
+        int noOfPages = rows / recordsPerPage;
+
+        if (rows % recordsPerPage != 0) {
+            noOfPages++;
+        }
+        List<UserRequest> userRequests = UserRequestDAO.getSomeUserRequests(pageNo, 2);
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", noOfPages);
+        model.addAttribute("totalItems", rows);
         model.addAttribute("userRequests", userRequests);
+
         return "requests";
     }
 

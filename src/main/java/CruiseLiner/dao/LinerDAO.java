@@ -4,6 +4,13 @@ import CruiseLiner.model.Liner;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LinerDAO {
@@ -12,6 +19,22 @@ public class LinerDAO {
      * Connection factory to database.
      */
     private static final SessionFactory factory = new Configuration().configure().buildSessionFactory();
+
+    /**
+     * Returns list of some liners
+     *
+     * @return List of Liner entities.
+     */
+    public static List<Liner> getSomeLiners(int currentPage, int recordsPerPage) {
+        int start = currentPage * recordsPerPage - recordsPerPage;
+
+        try (final Session session = factory.openSession()) {
+
+            List<Liner> liners = session.createQuery("FROM Liner", Liner.class).setFirstResult(start).setMaxResults(recordsPerPage).getResultList();
+
+            return liners;
+        }
+    }
 
     /**
      * Create new liner in liner table.

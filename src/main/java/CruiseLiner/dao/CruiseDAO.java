@@ -1,9 +1,12 @@
 package CruiseLiner.dao;
 
 import CruiseLiner.model.Cruise;
+import CruiseLiner.model.Liner;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
+
 import java.util.List;
 
 public class CruiseDAO {
@@ -12,6 +15,44 @@ public class CruiseDAO {
      * Connection factory to database.
      */
     private static final SessionFactory factory = new Configuration().configure().buildSessionFactory();
+
+    /**
+     * Returns list of some cruises
+     *
+     * @return List of Cruise entities.
+     */
+    public static List<Cruise> getSomeCruises(int currentPage, int recordsPerPage) {
+        int start = currentPage * recordsPerPage - recordsPerPage;
+
+        try (final Session session = factory.openSession()) {
+
+            List<Cruise> cruises = session.createQuery("FROM Cruise ", Cruise.class).setFirstResult(start).setMaxResults(recordsPerPage).getResultList();
+
+            return cruises;
+        }
+    }
+
+    public static List<Cruise> getSomeCruisesByDate(int currentPage, int recordsPerPage) {
+        int start = currentPage * recordsPerPage - recordsPerPage;
+
+        try (final Session session = factory.openSession()) {
+
+            List<Cruise> cruises = session.createQuery("FROM Cruise ORDER BY startDay", Cruise.class).getResultList();
+
+            return cruises;
+        }
+    }
+
+    public static List<Cruise> getSomeCruisesByDays(int currentPage, int recordsPerPage) {
+        int start = currentPage * recordsPerPage - recordsPerPage;
+
+        try (final Session session = factory.openSession()) {
+
+            List<Cruise> cruises = session.createQuery("FROM Cruise ORDER BY days", Cruise.class).setFirstResult(start).setMaxResults(recordsPerPage).getResultList();
+
+            return cruises;
+        }
+    }
 
     /**
      * Create new engine in engines table.

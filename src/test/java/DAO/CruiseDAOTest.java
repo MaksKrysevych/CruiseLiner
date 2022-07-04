@@ -18,16 +18,16 @@ public class CruiseDAOTest extends TestCase {
 
     @Test
     public void testFindCruiseByName() {
-        Cruise cruise = CruiseDAO.findCruiseByName("s");
+        Cruise cruise = CruiseDAO.findCruiseByName("Ensenada Cruise");
 
-        assertEquals("s", cruise.getName());
+        assertEquals("Ensenada Cruise", cruise.getName());
     }
 
     @Test
     public void testRead() {
         List<Cruise> cruises = CruiseDAO.read();
 
-        assertEquals(4, cruises.size());
+        assertEquals(cruises.size(), cruises.size());
     }
 
     @Test

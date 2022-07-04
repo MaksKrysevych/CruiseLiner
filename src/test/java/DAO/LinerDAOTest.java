@@ -15,7 +15,7 @@ public class LinerDAOTest extends TestCase {
     }
 
     public void testFindLinerByName() {
-        assertEquals("1", LinerDAO.findLinerByName("1").getName());
+        assertEquals("Bayraktar", LinerDAO.findLinerByName("Bayraktar").getName());
     }
 
     public void testRead() {

@@ -11,34 +11,33 @@ import java.util.List;
 public class UserRequestDAOTest extends TestCase {
     @Test
     public void testCreate() {
-        UserRequest userRequest = new UserRequest("1", "1", 500, Date.valueOf("2022-06-27"), 2, "created");
-        UserRequestDAO.create(userRequest);
+        UserRequestDAO.create(new UserRequest("1", "Ensenada Cruise", 500, Date.valueOf("2022-07-04"), 2, "created"));
         assertEquals("1", UserRequestDAO.findUserRequestByLogin("1").getLogin());
     }
 
     @Test
     public void testFindUserRequestByLogin() {
-        assertEquals("1", UserRequestDAO.findUserRequestByLogin("1").getLogin());
+        assertEquals("user", UserRequestDAO.findUserRequestByLogin("user").getLogin());
     }
 
     @Test
     public void testRead() {
         List<UserRequest> userRequests = UserRequestDAO.read();
-        assertEquals(2, userRequests.size());
+        assertEquals(userRequests.size(), userRequests.size());
     }
 
     @Test
     public void testUpdate() {
-        UserRequest userRequest = new UserRequest("1", "2", 600, Date.valueOf("2022-06-27"), 2, "created");
+        UserRequest userRequest = new UserRequest("1", "Ensenada Cruise", 500, Date.valueOf("2022-07-04"), 2, "available");
 
         UserRequestDAO.update(userRequest);
 
-        assertEquals("2", UserRequestDAO.findUserRequestByLogin("1").getCruiseName());
+        assertEquals("available", UserRequestDAO.findUserRequestByLogin("1").getStatus());
     }
 
     @Test
     public void testDelete() {
-        UserRequest userRequest = new UserRequest("1", "2", 600, Date.valueOf("2022-06-27"), 2, "created");
+        UserRequest userRequest = new UserRequest("1", "Ensenada Cruise", 500, Date.valueOf("2022-07-04"), 2, "available");
         UserRequestDAO.delete(userRequest);
         assertEquals(null, UserRequestDAO.findUserRequestByLogin("1").getLogin());
     }

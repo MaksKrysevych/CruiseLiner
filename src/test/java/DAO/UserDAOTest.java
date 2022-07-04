@@ -18,8 +18,8 @@ public class UserDAOTest extends TestCase {
 
     @Test
     public void testFindUserByLogin() {
-        User user = UserDAO.findUserByLogin("l");
-        assertEquals("l", user.getLogin());
+        User user = UserDAO.findUserByLogin("immortants");
+        assertEquals("immortants", user.getLogin());
     }
 
     @Test

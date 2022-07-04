@@ -29,14 +29,26 @@
     <form th:method="POST" th:action="@{/login}" th:object="${user}">
         <div class="container">
             <div class="form-floating">
-                <input type="text" th:field="*{login}" th:placeholder="#{login.label.username}"/>
+                <input type="text" th:field="*{login}" th:placeholder="#{login.label.username}" required/>
             </div>
             <div class="form-floating">
-                <input type="text" th:field="*{password}" th:placeholder="#{login.label.password}"/>
+                <input type="text" th:field="*{password}" th:placeholder="#{login.label.password}" minlength="8" maxlength="64" required/>
+            </div>
+            <div th:if="${error == true}">
+            </div>
+            <div class="form-group" th:if="${error == false}">
+                <input disabled class="text-danger form-control" th:value="#{error.login}"/>
             </div>
             <input type="submit" th:value="#{login.button.submit}"/>
         </div>
     </form>
 </div>
+<footer class="d-flex justify-content-center py-3">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a th:href="@{/?lang=ua}" class="nav-link" th:text="#{language.label.ukrainian}"></a></li>
+        <li class="nav-item"><a th:href="@{/?lang=}" class="nav-link" th:text="#{language.label.english}"></a></li>
+    </ul>
+</footer>
+<!-- Footer -->
 </body>
 </html>

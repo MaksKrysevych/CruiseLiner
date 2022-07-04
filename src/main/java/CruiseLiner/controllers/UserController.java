@@ -15,29 +15,34 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class UserController {
 
     @GetMapping("/login")
     public String loginForm(Model model){
-        model.addAttribute("user", new User());
-        return "/login";
+            model.addAttribute("user", new User());
+        return "login";
     }
 
     @PostMapping("/login")
-    public String loginSubmit(@ModelAttribute User user){
+    public String loginErrorSubmit(@ModelAttribute User user, Model model){
         User fullUser = UserDAO.findUserByLogin(user.getLogin());
-        if (fullUser.getEmail() == null)
+        if (fullUser.getLogin() == null || !Objects.equals(user.getPassword(), fullUser.getPassword())) {
+            boolean error = false;
+            model.addAttribute("error", error);
             return "login";
-        else
+        }
+        else {
             return "redirect:/";
+        }
     }
 
     @GetMapping("/signup")
     public String signupForm(Model model){
         model.addAttribute("user", new User());
-        return "/signup";
+        return "signup";
     }
 
     @PostMapping("/signup")
@@ -63,11 +68,18 @@ public class UserController {
     }
 
     @PostMapping("/book/{cruiseName}")
-    public String bookSubmit(@ModelAttribute String room, @ModelAttribute UserRequest userRequest, @PathVariable("cruiseName") String cruiseName){
+    public String bookSubmit(@ModelAttribute String room, @ModelAttribute UserRequest userRequest, @PathVariable("cruiseName") String cruiseName, Model model){
         room = userRequest.getStatus();
         int price = 0;
         java.util.Date dateNow = new java.util.Date();
         String date = new SimpleDateFormat("yyyy-MM-dd").format(dateNow);
+
+        User fullUser = UserDAO.findUserByLogin(userRequest.getLogin());
+        if (fullUser.getLogin() == null) {
+            boolean error = false;
+            model.addAttribute("error", error);
+            return "book";
+        }
 
         if (room.equals("inner")){
             price = LinerDAO.findLinerByName(CruiseDAO.findCruiseByName(cruiseName).getLiner()).getRoomInner() * userRequest.getCountPeople();
@@ -84,7 +96,7 @@ public class UserController {
         }
         UserRequestDAO.create(new UserRequest(userRequest.getLogin(), cruiseName, price, Date.valueOf(date), userRequest.getCountPeople(), "created"));
 
-        return "redirect:/";
+        return "redirect:/catalog/1?sorting=standard";
     }
 
     @GetMapping("/requests/{pageNo}")
@@ -110,6 +122,6 @@ public class UserController {
     public String requestDelete(@ModelAttribute UserRequest userRequest){
         UserRequestDAO.delete(userRequest);
 
-        return "redirect:/requests";
+        return "redirect:/requests/1";
     }
 }

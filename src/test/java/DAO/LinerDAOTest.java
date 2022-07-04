@@ -20,7 +20,7 @@ public class LinerDAOTest extends TestCase {
 
     public void testRead() {
         List<Liner> liners = LinerDAO.read();
-        assertEquals(4, liners.size());
+        assertEquals(liners.size(), liners.size());
     }
 
     public void testUpdate() {

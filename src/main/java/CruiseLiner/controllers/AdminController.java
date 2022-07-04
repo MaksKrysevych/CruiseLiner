@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class AdminController {
@@ -18,7 +19,7 @@ public class AdminController {
     public String requestUpdatingStatus(@ModelAttribute UserRequest userRequest){
         UserRequestDAO.update(userRequest);
 
-        return "redirect:/requests";
+        return "redirect:/requests/1";
     }
 
     @GetMapping("/cruises/{pageNo}")
@@ -47,16 +48,25 @@ public class AdminController {
     }
 
     @PostMapping("/cruises/update")
-    public String cruiseSubmit(@ModelAttribute Cruise cruise){
-        CruiseDAO.update(cruise);
-        return "redirect:/cruises";
+    public String cruiseSubmit(@ModelAttribute Cruise cruise, Model model){
+        Liner liner = LinerDAO.findLinerByName(cruise.getLiner());
+        if (liner.getBuilt() == null) {
+            boolean error = false;
+            model.addAttribute("error", error);
+            return "updateCruise";
+        }
+        else {
+            CruiseDAO.update(cruise);
+            return "redirect:/cruises/1";
+        }
+
     }
 
     @PostMapping("/cruises/delete")
     public String cruiseDelete(@ModelAttribute Cruise cruise){
         CruiseDAO.delete(cruise);
 
-        return "redirect:/cruises";
+        return "redirect:/cruises/1";
     }
 
     @GetMapping("/cruises/createCruise")
@@ -66,9 +76,17 @@ public class AdminController {
     }
 
     @PostMapping("/cruises/createCruise")
-    public String createCruiseSubmit(@ModelAttribute Cruise cruise){
-        CruiseDAO.create(cruise);
-        return "redirect:/cruises";
+    public String createCruiseSubmit(@ModelAttribute Cruise cruise, Model model){
+        Liner liner = LinerDAO.findLinerByName(cruise.getLiner());
+        if (liner.getBuilt() == null) {
+            boolean error = false;
+            model.addAttribute("error", error);
+            return "createCruise";
+        }
+        else {
+            CruiseDAO.create(cruise);
+            return "redirect:/cruises/1";
+        }
     }
 
     @GetMapping("/liners/{pageNo}")
@@ -98,15 +116,14 @@ public class AdminController {
 
     @PostMapping("/liners/update")
     public String linerSubmit(@ModelAttribute Liner liner){
-
         LinerDAO.update(liner);
-        return "redirect:/liners";
+        return "redirect:/liners/1";
     }
 
     @PostMapping("/liners/delete")
     public String linerDelete(@ModelAttribute Liner liner){
         LinerDAO.delete(liner);
-        return "redirect:/liners";
+        return "redirect:/liners/1";
     }
 
     @GetMapping("/liners/createLiner")
@@ -118,6 +135,6 @@ public class AdminController {
     @PostMapping("/liners/createLiner")
     public String createLinerSubmit(@ModelAttribute Liner liner){
         LinerDAO.create(liner);
-        return "redirect:/liners";
+        return "redirect:/liners/1";
     }
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:fmt="http://www.w3.org/1999/XSL/Transform" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org"
+      th:with="lang=${#locale.language}" th:lang="${lang}">
 <head>
     <meta charset="UTF-8">
     <title>Ukrainian Cruise</title>
@@ -59,5 +60,12 @@
         <h5 th:text="#{main.text.description9}"></h5>
     </div>
 </div>
+<footer class="d-flex justify-content-center py-3">
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a th:href="@{/?lang=ua}" class="nav-link" th:text="#{language.label.ukrainian}"></a></li>
+            <li class="nav-item"><a th:href="@{/?lang=}" class="nav-link" th:text="#{language.label.english}"></a></li>
+        </ul>
+</footer>
+<!-- Footer -->
 </body>
 </html>

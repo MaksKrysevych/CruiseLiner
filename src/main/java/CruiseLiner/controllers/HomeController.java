@@ -35,15 +35,15 @@ public class HomeController {
             noOfPages++;
         }
         if (sorting.equals("standard")){
-            List<Cruise> cruises = CruiseDAO.getSomeCruises(pageNo, 2);
+            List<Cruise> cruises = CruiseDAO.getSomeCruises(pageNo, recordsPerPage);
             model.addAttribute("cruises", cruises);
         }
         else if (sorting.equals("byDate")){
-            List<Cruise> cruises = CruiseDAO.getSomeCruisesByDate(pageNo, 2);
+            List<Cruise> cruises = CruiseDAO.getSomeCruisesByDate(pageNo, recordsPerPage);
             model.addAttribute("cruises", cruises);
         }
         else if (sorting.equals("byDays")){
-            List<Cruise> cruises = CruiseDAO.getSomeCruisesByDays(pageNo, 2);
+            List<Cruise> cruises = CruiseDAO.getSomeCruisesByDays(pageNo, recordsPerPage);
             model.addAttribute("cruises", cruises);
         }
 

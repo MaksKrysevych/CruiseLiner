@@ -42,7 +42,7 @@
             </div>
             <div class="form-group">
                 <label><span th:text="#{liners.label.built}"/></label>
-                <input name="built" type="text" th:flied="*{built}" th:value="*{built}" class="form-control" th:required="required"/>
+                <input name="built" type="text" th:flied="*{built}" th:value="*{built}" minlength="4" maxlength="4" class="form-control" th:required="required"/>
             </div>
             <div class="form-group">
                 <label><span th:text="#{liners.label.roomCount}"/></label>
@@ -76,5 +76,12 @@
         </form>
     </div>
 </div>
+<footer class="d-flex justify-content-center py-3">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a th:href="@{/?lang=ua}" class="nav-link" th:text="#{language.label.ukrainian}"></a></li>
+        <li class="nav-item"><a th:href="@{/?lang=}" class="nav-link" th:text="#{language.label.english}"></a></li>
+    </ul>
+</footer>
+<!-- Footer -->
 </body>
 </html>

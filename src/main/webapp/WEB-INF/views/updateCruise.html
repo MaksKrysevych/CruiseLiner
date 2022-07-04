@@ -73,10 +73,22 @@
             <div class="form-group">
             <label><span th:text="#{cruises.label.description}"></span></label>
             <input name="description" type="text" th:flied="*{description}" th:value="*{description}" class="form-control" th:required="required"/>
-            <button class="btn-primary" type="submit"><span th:text="#{cruises.button.submit}"></span></button>
+                <div th:if="${error == true}">
+                </div>
+                <div th:if="${error == false}">
+                    <input disabled class="text-danger" th:value="#{error.cruise}"/>
+                </div>
+                <button class="btn-primary" type="submit"><span th:text="#{cruises.button.submit}"></span></button>
             </div>
         </form>
     </div>
 </div>
+<footer class="d-flex justify-content-center py-3">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a th:href="@{/?lang=ua}" class="nav-link" th:text="#{language.label.ukrainian}"></a></li>
+        <li class="nav-item"><a th:href="@{/?lang=}" class="nav-link" th:text="#{language.label.english}"></a></li>
+    </ul>
+</footer>
+<!-- Footer -->
 </body>
 </html>

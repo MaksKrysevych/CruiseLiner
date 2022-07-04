@@ -55,8 +55,8 @@
                     <select th:value="${userRequest.status}" name="status">
                         <span th:if="${userRequest.status == 'created'}">
                             <option hidden th:value="'created'" th:text="#{requests.button.created}"></option>
-                            <option th:value="'available'" th:text="#{requests.button.available}'"></option>
-                            <option th:value="'paid'" th:text="#{requests.button.paid}'"></option>
+                            <option th:value="'available'" th:text="#{requests.button.available}"></option>
+                            <option th:value="'paid'" th:text="#{requests.button.paid}"></option>
                             <option th:value="'finished'" th:text="#{requests.button.finished}"></option>
                         </span>
                         <span th:if="${userRequest.status == 'available'}">
@@ -89,6 +89,13 @@
             </td>
             <td><span th:text="${userRequest.createTime}"></span></td>
             <td>
+                <div th:if="${userRequest.status == 'available'}">
+                    <form action = "#" method = "post" enctype = "multipart/form-data">
+                        <input type = "file" name = "file" size = "50" />
+                        <br/>
+                        <input type = "submit" th:value = "#{requests.button.upload}"/>
+                    </form>
+                </div>
                 <form th:method="POST" th:action="@{/requests/delete}">
                     <input type="hidden" th:value="${userRequest.login}" name="login">
                     <input type="hidden" th:value="${userRequest.cruiseName}" name="cruiseName">
@@ -122,5 +129,12 @@
         </div>
     </nav>
 </div>
+<footer class="d-flex justify-content-center py-3">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a th:href="@{/?lang=ua}" class="nav-link" th:text="#{language.label.ukrainian}"></a></li>
+        <li class="nav-item"><a th:href="@{/?lang=}" class="nav-link" th:text="#{language.label.english}"></a></li>
+    </ul>
+</footer>
+<!-- Footer -->
 </body>
 </html>

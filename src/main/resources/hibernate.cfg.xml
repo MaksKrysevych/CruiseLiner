@@ -10,10 +10,10 @@
         <property name="connection.password">root</property>
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="show_sql">true</property>
-        <mapping resource="Cruise.hbm.xml"/>
-        <mapping resource="Liner.hbm.xml"/>
-        <mapping resource="User.hbm.xml"/>
-        <mapping resource="UserRequest.hbm.xml"/>
+        <mapping resource="hibernate/Cruise.hbm.xml"/>
+        <mapping resource="hibernate/Liner.hbm.xml"/>
+        <mapping resource="hibernate/User.hbm.xml"/>
+        <mapping resource="hibernate/UserRequest.hbm.xml"/>
 
 
     </session-factory>

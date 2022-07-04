@@ -35,13 +35,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="form_login"><span th:text="#{signup.label.login}"/></label>
-                            <input id="form_login" type="text" th:field="*{login}" class="form-control" required="required" data-error="Login is required.">
+                            <input id="form_login" type="text" th:field="*{login}" class="form-control" required="required"  th:placeholder="#{signup.placeholder.login}">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="form_password"><span th:text="#{signup.label.password}"/></label>
-                            <input id="form_password" type="text" th:field="*{password}" class="form-control" required="required" data-error="Password is required.">
+                            <input id="form_password" type="text" th:field="*{password}" class="form-control" required="required" th:placeholder="#{signup.placeholder.password}">
                         </div>
                     </div>
                 </div>
@@ -50,13 +50,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="form_name"><span th:text="#{signup.label.firstname}"/></label>
-                            <input id="form_name" type="text" th:field="*{firstName}" class="form-control" required="required" data-error="Firstname is required.">
+                            <input id="form_name" type="text" th:field="*{firstName}" class="form-control" required="required" th:placeholder="#{signup.placeholder.firstname}">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="form_lastname"><span th:text="#{signup.label.lastname}"/></label>
-                            <input id="form_lastname" type="text" th:field="*{lastName}" class="form-control" required="required" data-error="Lastname is required.">
+                            <input id="form_lastname" type="text" th:field="*{lastName}" class="form-control" required="required" th:placeholder="#{signup.placeholder.lastname}">
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="form_email"><span th:text="#{signup.label.email}"/></label>
-                            <input id="form_email" type="email" th:field="*{email}" class="form-control" required="required" data-error="Valid email is required.">
+                            <input id="form_email" type="email" th:field="*{email}" class="form-control" required="required" th:placeholder="#{signup.placeholder.email}">
                         </div>
                     </div>
 
@@ -109,4 +109,11 @@
 <script src="https://bootstraptema.ru/snippets/form/2017/recaptcha/validator.js"></script>
 <script src="https://bootstraptema.ru/snippets/form/2017/recaptcha/contact.js"></script>
 </body>
+<footer class="d-flex justify-content-center py-3">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a th:href="@{/?lang=ua}" class="nav-link" th:text="#{language.label.ukrainian}"></a></li>
+        <li class="nav-item"><a th:href="@{/?lang=}" class="nav-link" th:text="#{language.label.english}"></a></li>
+    </ul>
+</footer>
+<!-- Footer -->
 </html>

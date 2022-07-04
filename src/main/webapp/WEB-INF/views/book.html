@@ -21,6 +21,8 @@
         <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link" th:text="#{main.button.logout}"></a></li>
         <li class="nav-item"><a th:href="@{/login}" class="nav-link" th:text="#{main.button.login}"></a></li>
         <li class="nav-item"><a th:href="@{/signup}" class="nav-link" th:text="#{main.button.signup}"></a></li>
+        <li class="nav-item"><a th:href="@{/?lang=ua}" class="nav-link" th:text="#{language.label.ukrainian}"></a></li>
+        <li class="nav-item"><a th:href="@{/?lang=}" class="nav-link" th:text="#{language.label.english}"></a></li>
       </ul>
     </div>
   </header>
@@ -48,10 +50,22 @@
             <option th:value="'luxury'" th:text="#{book.label.room.luxury}"></option>
           </select>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
+        <div th:if="${error == true}">
+        </div>
+        <div class="form-group" th:if="${error == false}">
+          <input disabled class="text-danger form-control" th:value="#{error.book}"/>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit"><span th:text="#{book.button.submit}"></span></button>
       </div>
     </form>
   </div><!-- /.col-lg-8 col-lg-offset-2 -->
 </div> <!-- /.container-->
+<footer class="d-flex justify-content-center py-3">
+  <ul class="nav nav-pills">
+    <li class="nav-item"><a th:href="@{/?lang=ua}" class="nav-link" th:text="#{language.label.ukrainian}"></a></li>
+    <li class="nav-item"><a th:href="@{/?lang=}" class="nav-link" th:text="#{language.label.english}"></a></li>
+  </ul>
+</footer>
+<!-- Footer -->
 </body>
 </html>

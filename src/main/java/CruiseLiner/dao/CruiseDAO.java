@@ -37,7 +37,7 @@ public class CruiseDAO {
 
         try (final Session session = factory.openSession()) {
 
-            List<Cruise> cruises = session.createQuery("FROM Cruise ORDER BY startDay", Cruise.class).getResultList();
+            List<Cruise> cruises = session.createQuery("FROM Cruise ORDER BY startDay", Cruise.class).setFirstResult(start).setMaxResults(recordsPerPage).getResultList();
 
             return cruises;
         }

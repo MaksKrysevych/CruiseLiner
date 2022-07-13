@@ -4,16 +4,16 @@ import CruiseLiner.dao.CruiseDAO;
 import CruiseLiner.dao.LinerDAO;
 import CruiseLiner.dao.UserDAO;
 import CruiseLiner.dao.UserRequestDAO;
-import CruiseLiner.model.Cruise;
-import CruiseLiner.model.Liner;
 import CruiseLiner.model.User;
 import CruiseLiner.model.UserRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginErrorSubmit(@ModelAttribute User user, Model model){
+    public String loginSubmit(@ModelAttribute User user, Model model){
         User fullUser = UserDAO.findUserByLogin(user.getLogin());
         if (fullUser.getLogin() == null || !Objects.equals(user.getPassword(), fullUser.getPassword())) {
             boolean error = false;
@@ -55,7 +55,9 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String profile(){
+    public String profile(Authentication authentication, Model model){
+        model.addAttribute("user", UserDAO.findUserByLogin(authentication.getName()));
+
         return "profile";
     }
 
@@ -68,18 +70,18 @@ public class UserController {
     }
 
     @PostMapping("/book/{cruiseName}")
-    public String bookSubmit(@ModelAttribute String room, @ModelAttribute UserRequest userRequest, @PathVariable("cruiseName") String cruiseName, Model model){
+    public String bookSubmit(@ModelAttribute String room, @ModelAttribute UserRequest userRequest, @PathVariable("cruiseName") String cruiseName, Authentication authentication, Model model){
+        userRequest.setLogin(authentication.getName());
         room = userRequest.getStatus();
         int price = 0;
         java.util.Date dateNow = new java.util.Date();
         String date = new SimpleDateFormat("yyyy-MM-dd").format(dateNow);
 
-        User fullUser = UserDAO.findUserByLogin(userRequest.getLogin());
-        if (fullUser.getLogin() == null) {
-            boolean error = false;
-            model.addAttribute("error", error);
-            return "book";
-        }
+//        if(UserRequestDAO.findUserRequestByLogin(userRequest.getLogin()).getLogin() == null){
+//            String error = "request exists";
+//            model.addAttribute("error", error);
+//            return "book";
+//        }
 
         if (room.equals("inner")){
             price = LinerDAO.findLinerByName(CruiseDAO.findCruiseByName(cruiseName).getLiner()).getRoomInner() * userRequest.getCountPeople();
@@ -100,7 +102,7 @@ public class UserController {
     }
 
     @GetMapping("/requests/{pageNo}")
-    public String requestsTable(@PathVariable(value = "pageNo") int pageNo, Model model){
+    public String requestsTable(@PathVariable(value = "pageNo") int pageNo, Authentication authentication, Model model){
         int recordsPerPage = 2;
 
         int rows = UserRequestDAO.read().size();
@@ -109,11 +111,27 @@ public class UserController {
         if (rows % recordsPerPage != 0) {
             noOfPages++;
         }
-        List<UserRequest> userRequests = UserRequestDAO.getSomeUserRequests(pageNo, 2);
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", noOfPages);
-        model.addAttribute("totalItems", rows);
-        model.addAttribute("userRequests", userRequests);
+        if (UserDAO.findUserByLogin(authentication.getName()).getRole().equals("user")){
+            List<UserRequest> allUserRequests = UserRequestDAO.read();
+            List<UserRequest> myRequests = new ArrayList<>();
+            for (UserRequest request: allUserRequests) {
+                if (request.getLogin().equals(authentication.getName())){
+                    myRequests.add(request);
+                }
+            }
+
+            model.addAttribute("currentPage", pageNo);
+            model.addAttribute("totalPages", noOfPages);
+            model.addAttribute("totalItems", rows);
+            model.addAttribute("userRequests", myRequests);
+        }
+        else {
+            List<UserRequest> userRequests = UserRequestDAO.getSomeUserRequests(pageNo, 2);
+            model.addAttribute("currentPage", pageNo);
+            model.addAttribute("totalPages", noOfPages);
+            model.addAttribute("totalItems", rows);
+            model.addAttribute("userRequests", userRequests);
+        }
 
         return "requests";
     }
@@ -123,5 +141,36 @@ public class UserController {
         UserRequestDAO.delete(userRequest);
 
         return "redirect:/requests/1";
+    }
+
+    @GetMapping("/edit")
+    public String editForm(Authentication authentication, Model model){
+        model.addAttribute("user", UserDAO.findUserByLogin(authentication.getName()));
+
+        return "edit";
+    }
+
+    @PostMapping("/edit")
+    public String editSubmit(@ModelAttribute User user){
+        UserDAO.update(user);
+
+        return "redirect:/profile";
+    }
+
+    @GetMapping("/topup")
+    public String topupForm(Authentication authentication, Model model){
+        model.addAttribute("user", new User());
+
+        return "topup";
+    }
+
+    @PostMapping("/topup")
+    public String topupSubmit(@ModelAttribute User money, Authentication authentication){
+        User user = UserDAO.findUserByLogin(authentication.getName());
+        int total = money.getAccount() + user.getAccount();
+        user.setAccount(total);
+        UserDAO.update(user);
+
+        return "redirect:/profile";
     }
 }

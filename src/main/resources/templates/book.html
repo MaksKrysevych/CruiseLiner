@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Book</title>
@@ -14,15 +14,25 @@
     <div class="navbar navbar-header">
       <h5>|Cruise|</h5>
       <ul class="nav nav-pills">
-        <li class="nav-item"><a th:href="@{/}" class="nav-link" aria-current="page" th:text="#{main.button.home}"></a></li>
+        <h5>|Cruise|</h5>
+        <li class="nav-item"><a th:href="@{/}" class="nav-link active" aria-current="page" th:text="#{main.button.home}"></a></li>
         <li class="nav-item"><a th:href="@{/contacts}" class="nav-link" th:text="#{main.button.contacts}"></a></li>
-        <li class="nav-item"><a th:href="@{/catalog/1?sorting=standard}" class="nav-link  active" th:text="#{main.button.catalog}"></a></li>
-        <li class="nav-item"><a th:href="@{/profile}" class="nav-link" th:text="#{main.button.profile}"></a></li>
-        <li class="nav-item"><a href="/CruiseLiner/logout" class="nav-link" th:text="#{main.button.logout}"></a></li>
-        <li class="nav-item"><a th:href="@{/login}" class="nav-link" th:text="#{main.button.login}"></a></li>
-        <li class="nav-item"><a th:href="@{/signup}" class="nav-link" th:text="#{main.button.signup}"></a></li>
-        <li class="nav-item"><a th:href="@{/?lang=ua}" class="nav-link" th:text="#{language.label.ukrainian}"></a></li>
-        <li class="nav-item"><a th:href="@{/?lang=}" class="nav-link" th:text="#{language.label.english}"></a></li>
+        <li class="nav-item"><a th:href="@{/catalog/1?sorting=standard}" class="nav-link" th:text="#{main.button.catalog}"></a></li>
+        <div sec:authorize="isAuthenticated()">
+          <li class="nav-item"><a th:href="@{/profile}" class="nav-link" th:text="#{main.button.profile}"></a></li>
+
+        </div>
+        <div sec:authorize="isAuthenticated()">
+          <form th:action="@{/logout}" method="post">
+            <input type="submit" th:value="#{main.button.logout}"/>
+          </form>
+        </div>
+        <div sec:authorize="!isAuthenticated()">
+          <li class="nav-item"><a th:href="@{/login}" class="nav-link" th:text="#{main.button.login}"></a></li>
+        </div>
+        <div sec:authorize="!isAuthenticated()">
+          <li class="nav-item"><a th:href="@{/signup}" class="nav-link" th:text="#{main.button.signup}"></a></li>
+        </div>
       </ul>
     </div>
   </header>
@@ -32,10 +42,6 @@
     <form th:method="POST" th:action="@{/book/{cruiseName}(cruiseName=${cruiseName})}" th:object="${userRequest}">
       <div class="col-md-6">
         <h1 class="text-center"><span th:text="#{book.label.book}"/></h1>
-        <div class="form-group">
-          <label><span th:text="#{book.label.login}"/></label>
-          <input id="login" type="text" th:field="*{login}" class="form-control" data-error="Login is required.">
-        </div>
         <div class="form-group">
           <label for="people"><span th:text="#{book.label.people}"/></label>
           <input id="people" type="text" th:field="*{countPeople}" class="form-control" data-error="Count people is required.">
@@ -50,10 +56,11 @@
             <option th:value="'luxury'" th:text="#{book.label.room.luxury}"></option>
           </select>
         </div>
-        <div th:if="${error == true}">
+        <div th:if="${error == 'user doesnt exist'}">
+          <input disabled class="text-danger form-control" th:value="#{error.book.notExist}"/>
         </div>
-        <div class="form-group" th:if="${error == false}">
-          <input disabled class="text-danger form-control" th:value="#{error.book}"/>
+        <div class="form-group" th:if="${error == 'request exists'}">
+          <input disabled class="text-danger form-control" th:value="#{error.book.exist}"/>
         </div>
         <button class="w-100 btn btn-lg btn-primary" type="submit"><span th:text="#{book.button.submit}"></span></button>
       </div>
@@ -62,8 +69,12 @@
 </div> <!-- /.container-->
 <footer class="d-flex justify-content-center py-3">
   <ul class="nav nav-pills">
-    <li class="nav-item"><a th:href="@{/?lang=ua}" class="nav-link" th:text="#{language.label.ukrainian}"></a></li>
-    <li class="nav-item"><a th:href="@{/?lang=}" class="nav-link" th:text="#{language.label.english}"></a></li>
+    <li class="nav-item" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder)}">
+      <a th:href="${urlBuilder.fromCurrentRequest().replaceQueryParam('lang', 'ua').toUriString()}" th:text="#{language.label.ukrainian}"></a>
+    </li>
+    <li class="nav-item" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder)}">
+      <a th:href="${urlBuilder.fromCurrentRequest().replaceQueryParam('lang', ' ').toUriString()}" th:text="#{language.label.english}"></a>
+    </li>
   </ul>
 </footer>
 <!-- Footer -->

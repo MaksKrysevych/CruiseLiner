@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <header class="d-flex justify-content-center py-3">
+        <div class="navbar navbar-header">
+            <ul class="nav nav-pills">
+                <h5>|Cruise|</h5>
+                <li class="nav-item"><a th:href="@{/}" class="nav-link" aria-current="page" th:text="#{main.button.home}"></a></li>
+                <li class="nav-item"><a th:href="@{/contacts}" class="nav-link" th:text="#{main.button.contacts}"></a></li>
+                <li class="nav-item"><a th:href="@{/catalog/1?sorting=standard}" class="nav-link" th:text="#{main.button.catalog}"></a></li>
+                <div sec:authorize="isAuthenticated()">
+                    <li class="nav-item"><a th:href="@{/profile}" class="nav-link active" th:text="#{main.button.profile}"></a></li>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post">
+                        <input type="submit" th:value="#{main.button.logout}"/>
+                    </form>
+                </div>
+                <div sec:authorize="!isAuthenticated()">
+                    <li class="nav-item"><a th:href="@{/login}" class="nav-link" th:text="#{main.button.login}"></a></li>
+                </div>
+                <div sec:authorize="!isAuthenticated()">
+                    <li class="nav-item"><a th:href="@{/signup}" class="nav-link" th:text="#{main.button.signup}"></a></li>
+                </div>
+            </ul>
+        </div>
+    </header>
+    <div class="container">
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a th:href="@{/profile}" class="nav-link" aria-current="page" th:text="#{profile.button.myProfile}"></a></li>
+            <li class="nav-item"><a th:href="@{/requests/1}" class="nav-link" th:text="#{profile.button.requests}"></a></li>
+            <div th:if="${#request.userPrincipal.principal.user.role == 'admin'}">
+            <li class="nav-item"><a th:href="@{/cruises/1}" class="nav-link" th:text="#{profile.button.cruises}"></a></li>
+            </div>
+            <div th:if="${#request.userPrincipal.principal.user.role == 'admin'}">
+                <li class="nav-item"><a th:href="@{/liners/1}" class="nav-link" th:text="#{profile.button.liners}"></a></li>
+            </div>
+        </ul>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <strong>
+        <span th:text="#{profile.label.login}"/>: <span th:text="${user.login}"/></span><br/>
+        <span th:text="#{profile.label.firstname}"/>: <span th:text="${user.firstName}"></span><br/>
+        <span th:text="#{profile.label.lastname}"/>: <span th:text="${user.lastName}"></span><br/>
+        <span th:text="#{profile.label.phone}"/>: <span th:text="${user.phoneNumber}"></span><br/>
+        <span th:text="#{profile.label.email}"/>: <span th:text="${user.email}"></span><br/>
+        <span th:text="#{profile.label.account}"/>: <span th:text="${user.account}"></span><br/>
+        <h4 class="front-weight-bold blue-text">
+            <a th:href="@{/edit}">
+                <strong><span th:text="#{profile.button.edit}"></span></strong>
+            </a>
+        </h4>
+        <h4 class="front-weight-bold blue-text">
+            <a th:href="@{/topup}">
+                <strong><span th:text="#{profile.button.topup}"></span></strong>
+            </a>
+        </h4>
+        </strong>
+    </div>
+</div>
+<footer class="d-flex justify-content-center py-3">
+    <ul class="nav nav-pills">
+        <li class="nav-item" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder)}">
+            <a th:href="${urlBuilder.fromCurrentRequest().replaceQueryParam('lang', 'ua').toUriString()}" th:text="#{language.label.ukrainian}"></a>
+        </li>
+        <li class="nav-item" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder)}">
+            <a th:href="${urlBuilder.fromCurrentRequest().replaceQueryParam('lang', ' ').toUriString()}" th:text="#{language.label.english}"></a>
+        </li>
+    </ul>
+</footer>
+<!-- Footer -->
+</body>
+</html>

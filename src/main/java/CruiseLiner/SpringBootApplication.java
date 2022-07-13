@@ -1,4 +1,4 @@
-package CruiseLiner.config;
+package CruiseLiner;
 
 import org.springframework.boot.SpringApplication;
 

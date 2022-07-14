@@ -117,6 +117,19 @@
                     </form>
                 </div>
                 </div>
+                <div th:if="${#request.userPrincipal.principal.user.role == 'user'}">
+                    <div th:if="${userRequest.status == 'available'}">
+                    <form th:method="POST" th:action="@{/requests/pay}">
+                        <input type="hidden" th:value="${userRequest.login}" name="login">
+                        <input type="hidden" th:value="${userRequest.cruiseName}" name="cruiseName">
+                        <input type="hidden" th:value="${userRequest.countPeople}" name="countPeople">
+                        <input type="hidden" th:value="${userRequest.price}" name="price">
+                        <input type="hidden" th:value="${userRequest.status}" name="status">
+                        <input type="hidden" th:value="${userRequest.createTime}" name="createTime">
+                        <button class="btn-primary" type="submit"><span th:text="#{requests.button.pay}"></span></button>
+                    </form>
+                    </div>
+                </div>
                 <form th:method="POST" th:action="@{/requests/delete}">
                     <input type="hidden" th:value="${userRequest.login}" name="login">
                     <input type="hidden" th:value="${userRequest.cruiseName}" name="cruiseName">

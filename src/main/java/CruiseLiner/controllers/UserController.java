@@ -51,7 +51,7 @@ public class UserController {
         user.setAccount(0);
         user.setNotification((byte) 0);
         UserDAO.create(user);
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     @GetMapping("/profile")
@@ -77,11 +77,11 @@ public class UserController {
         java.util.Date dateNow = new java.util.Date();
         String date = new SimpleDateFormat("yyyy-MM-dd").format(dateNow);
 
-//        if(UserRequestDAO.findUserRequestByLogin(userRequest.getLogin()).getLogin() == null){
-//            String error = "request exists";
-//            model.addAttribute("error", error);
-//            return "book";
-//        }
+        if(!Objects.equals(UserRequestDAO.findUserRequestByLogin(userRequest.getLogin()).getPrice(), 0)){
+            String error = "request exists";
+            model.addAttribute("error", error);
+            return "book";
+        }
 
         if (room.equals("inner")){
             price = LinerDAO.findLinerByName(CruiseDAO.findCruiseByName(cruiseName).getLiner()).getRoomInner() * userRequest.getCountPeople();
@@ -172,5 +172,23 @@ public class UserController {
         UserDAO.update(user);
 
         return "redirect:/profile";
+    }
+
+    @PostMapping("/requests/pay")
+    public String pay(@ModelAttribute UserRequest userRequest){
+        if (UserDAO.findUserByLogin(userRequest.getLogin()).getAccount() < userRequest.getPrice())
+        {
+            return "redirect:/topup";
+        }
+        else {
+            User user = UserDAO.findUserByLogin(userRequest.getLogin());
+            int money = user.getAccount() - userRequest.getPrice();
+            user.setAccount(money);
+            UserDAO.update(user);
+            userRequest.setStatus("paid");
+            UserRequestDAO.update(userRequest);
+        }
+
+        return "redirect:/requests/1";
     }
 }
